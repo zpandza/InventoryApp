@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import fire from '../config/fire';
+import Item from '../components/item';
 import Firebase from 'firebase';
-import Navigation from '../components/navigation'
-import { write } from 'fs';
 
 class Home extends Component {
     constructor(props) {
@@ -15,8 +14,17 @@ class Home extends Component {
             category: "",
             barcode: ""
         }
-
+        let items = fire.database().ref('items');
+        items.on('value', snapshot => {
+            snapshot.forEach((item)=>{
+                console.log(item.toJSON());
+            })
+        });
+         
         this.logout = this.logout.bind(this);
+    }
+    getData = (values) => {
+        //console.log(values);
     }
 
 
@@ -24,31 +32,31 @@ class Home extends Component {
         fire.auth().signOut();
     }
 
-    getUserData = () => {
+    // getUserData = () => {
 
-        let something = fire;
+    //     let something = fire;
 
-        let database = something.database();
+    //     let database = something.database();
 
-        let ref = database.ref('items');
+    //     let ref = database.ref('items');
 
-        ref.on('value', this.gotData, this.errData);
+    //     ref.on('value', this.gotData, this.errData);
 
-    }
+    // }
 
-    gotData = (data) => {
-        console.log('data retrieved')
-        console.log(data.val());
-    }
+    // gotData = (data) => {
+    //     console.log('data retrieved')
+    //     console.log(data.val());
+    // }
 
-    errData = (err) => {
-        console.log(err);
-        console.log('error');
-    }
+    // errData = (err) => {
+    //     console.log(err);
+    //     console.log('error');
+    // }
 
-    componentDidMount() {
-        this.getUserData();
-    }
+    // componentDidMount() {
+    //     this.getUserData();
+    // }
 
     addItem = (e) => {
         e.preventDefault();
@@ -82,7 +90,7 @@ class Home extends Component {
                     <input type="text" name="barcode"></input>
                     <input type="submit" value="Add"></input>
                 </form>
-
+                <Item name={`some name`} description={`some description`} category={`some category`} barcode={`some barcode`} itemsRef={this.state.itemsRef.toJSON()}/>
                 <h1>Welcome to Home page !!</h1>
                 <button onClick={this.logout}>Logout</button>
             </div>
