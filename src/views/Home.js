@@ -83,7 +83,7 @@ class Home extends Component {
                     <input type="submit" value="Add"></input>
                 </form>
 
-                <h1>Welcome to Home page</h1>
+                <h1>Welcome to Home page !!</h1>
                 <button onClick={this.logout}>Logout</button>
             </div>
         );
