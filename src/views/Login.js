@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import fire from '../config/fire';
+import './Login.css';
 
 class Login extends Component {
   constructor(props) {
@@ -19,38 +20,63 @@ class Login extends Component {
 
   login(e) {
     e.preventDefault();
-    fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u)=>{
+    fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
     }).catch((error) => {
-        console.log(error);
-      });
+      console.log(error);
+    });
   }
 
   signup = (e) => {
     e.preventDefault();
-    fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u)=>{
-    }).then((u)=>{console.log(u)})
-    .catch((error) => {
+    fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
+    }).then((u) => { console.log(u) })
+      .catch((error) => {
         console.log(error);
       })
   }
   render() {
     return (
-        
-      <div className="col-md-6">
-        <form>
-          <div className="form-group">
-            <label htmlFor="exampleInputEmail1">Email address</label>
-            <input  value={this.state.email} onChange={this.handleChange} type="email" name="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
-            <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+
+      <div id="login-wrapper">
+        <section className="form-simple">
+
+
+          <div className="card">
+
+
+            <div className="header pt-3 grey lighten-2">
+
+              <div className="row d-flex justify-content-start">
+                <h3 className="deep-grey-text mt-3 mb-4 pb-1 mx-5">Log in</h3>
+              </div>
+
+            </div>
+
+
+            <div className="card-body mx-4 mt-4">
+
+
+              <div className="md-form">
+                <input type="email" name="email" id="email" className="form-control" onChange={this.handleChange}/>
+                <label htmlFor="email">Your email</label>
+              </div>
+
+              <div className="md-form pb-3">
+                <input type="password" id="Form-pass4" className="form-control" name="password" onChange={this.handleChange}/>
+                <label htmlFor="Form-pass4">Your password</label>
+                <p className="font-small grey-text d-flex justify-content-end">Forgot <a href="#" className="dark-grey-text font-weight-bold ml-1"> Password?</a></p>
+              </div>
+
+              <div className="text-center mb-4">
+                <button type="button" className="btn btn-danger btn-block z-depth-2" onClick={this.login}>Log in</button>
+              </div>
+              <p className="font-small grey-text d-flex justify-content-center">Don't have an account? <a href="#" className="dark-grey-text font-weight-bold ml-1"> Sign up</a></p>
+
+            </div>
+
           </div>
-          <div className="form-group">
-            <label htmlFor="exampleInputPassword1">Password</label>
-            <input  value={this.state.password} onChange={this.handleChange} type="password" name="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
-          </div>
-          <button type="submit" onClick={this.login} className="btn btn-primary">Login</button>
-          <button onClick={this.signup} style={{marginLeft: '25px'}} className="btn btn-success">Signup</button>
-        </form>
-      
+
+        </section>
       </div>
     );
   }
