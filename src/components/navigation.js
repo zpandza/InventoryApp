@@ -13,9 +13,8 @@ class Navigation extends React.Component {
                         <ul className="navbar-nav">
                             <li className="nav-item active">
                                 <a className="nav-link"><Link to="/">Home</Link> <span className="sr-only">(current)</span></a>
-                            </li>
-                            <li className="nav-item active">
-                                <a className="nav-link"><Link to="/">Home</Link></a>
+                                <a className="nav-link"><Link to="/Users">Users</Link></a>
+                                <a className="nav-link"><Link to="/Categories">Categories</Link></a>
                             </li>
                         </ul>
                     </div>

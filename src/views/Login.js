@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import fire from '../config/fire';
 import './Login.css';
+import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
+
 
 class Login extends Component {
   constructor(props) {
@@ -34,6 +36,16 @@ class Login extends Component {
         console.log(error);
       })
   }
+  resetPassword = (e) => {
+    console.log(this.state.email);
+    fire.auth().sendPasswordResetEmail(this.state.email)
+      .then(function (user) {
+        alert('Please check your email...')
+      }).catch(function (e) {
+        console.log(e)
+      })
+    
+  }
   render() {
     return (
 
@@ -64,13 +76,13 @@ class Login extends Component {
               <div className="md-form pb-3">
                 <input type="password" id="Form-pass4" className="form-control" name="password" onChange={this.handleChange}/>
                 <label htmlFor="Form-pass4">Your password</label>
-                <p className="font-small grey-text d-flex justify-content-end">Forgot <a href="#" className="dark-grey-text font-weight-bold ml-1"> Password?</a></p>
+                <p className="font-small grey-text d-flex justify-content-end">Forgot <a onClick={this.resetPassword} href="#" className="dark-grey-text font-weight-bold ml-1"> Password?</a></p>
               </div>
 
               <div className="text-center mb-4">
                 <button type="button" className="btn btn-danger btn-block z-depth-2" onClick={this.login}>Log in</button>
               </div>
-              <p className="font-small grey-text d-flex justify-content-center">Don't have an account? <a href="#" className="dark-grey-text font-weight-bold ml-1"> Sign up</a></p>
+              <p className="font-small grey-text d-flex justify-content-center">Don't have an account? <a href="#" onClick={this.signup} className="dark-grey-text font-weight-bold ml-1"><Link to="/Registration">Sign up</Link></a></p>
 
             </div>
 
