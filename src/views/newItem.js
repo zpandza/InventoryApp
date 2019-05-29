@@ -35,7 +35,7 @@ class NewItem extends React.Component {
     addItem = (e) => {
         e.preventDefault();
 
-        let id = e.target.elements.id.value;
+        //let id = e.target.elements.id.value;
         let name = e.target.elements.name.value;
         let description = e.target.elements.description.value;
         let category = e.target.elements.category.value;
@@ -43,25 +43,28 @@ class NewItem extends React.Component {
 
 
 
-        this.writeUserData(id, name, description, category, barcode)
+        this.writeUserData(name, description, category, barcode)
 
-        e.target.elements.id.value = '';
+        //e.target.elements.id.value = '';
         e.target.elements.name.value = '';
         e.target.elements.description.value = '';
         e.target.elements.category.value = '';
         e.target.elements.barcode.value = '';
     }
 
-    writeUserData = (id, name, description, category, barcode) => {
-        fire.database().ref('items/' + id).set({
+    writeUserData = (name, description, category, barcode) => {
+
+        let postRef = fire.database().ref('items');
+
+        let newPostRef = postRef.push();
+
+        newPostRef.set({
             name: name,
             description: description,
             category: category,
             barcode: barcode
         });
-
     }
-
 
     render() {
         return (
@@ -76,8 +79,8 @@ class NewItem extends React.Component {
                         <form onSubmit={this.addItem} className="align-center">
                             <div className="form-group">
                                 <div className="form-row">
-                                    <label htmlFor="id">ID: </label>
-                                    <input type="text" name="id" className="form-control" id="id"></input>
+                                    {/* <label htmlFor="id">ID: </label>
+                                    <input type="text" name="id" className="form-control" id="id"></input> */}
                                     <label htmlFor="name">Name: </label>
                                     <input type="text" name="name" className="form-control" id="name"></input>
                                     
@@ -85,10 +88,8 @@ class NewItem extends React.Component {
                                 <div className="form-row">
                                     <label htmlFor="description">Description: </label>
                                     <input type="text" name="description" className="form-control" id="description"></input>
-                                    {/* <label htmlFor="category">Category: </label>
-                                    <input type="text" name="category" className="form-control" id="category"></input> */}
                                     <label htmlFor="category">Category</label>
-                                    <select class="form-control" id="category" name="category">
+                                    <select className="form-control" id="category" name="category">
                                         {
                                             this.state.categories.map((category) => {
                                                 console.log(category);
@@ -105,6 +106,7 @@ class NewItem extends React.Component {
                                 </div>
                             </div>
                             <input type="submit" className="btn btn-danger" value="Add"></input><br /><br />
+                            <button type="submit" className="btn btn-primary"><Link to="/" style={{ color: "white" }}>Add</Link></button>
                             <button className="btn btn-primary"><Link to="/" style={{ color: "white" }}>Back</Link></button>
                         </form>
 

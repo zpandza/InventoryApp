@@ -10,20 +10,29 @@ class NewCategory extends React.Component {
 
         e.preventDefault();
 
-        let id = e.target.elements.id.value;
+        //let id = e.target.elements.id.value;
         let categoryName = e.target.elements.categoryName.value;
         let categoryDescription = e.target.elements.categoryDescription.value;
 
         
-        this.writeUserData(id,categoryName,categoryDescription);
+        this.writeUserData(categoryName,categoryDescription);
 
     }
 
-    writeUserData = (id, categoryName, categoryDescription) => {
-        fire.database().ref('categories/' + id).set({
+    writeUserData = (categoryName, categoryDescription) => {
+        let postRef = fire.database().ref('categories');
+
+        let newPostRef = postRef.push()
+
+        newPostRef.set({
             categoryName: categoryName,
             categoryDescription: categoryDescription
-        });
+        })
+
+        // fire.database().ref('categories/' + id).set({
+        //     categoryName: categoryName,
+        //     categoryDescription: categoryDescription
+        // });
 
     }
 
@@ -38,8 +47,8 @@ class NewCategory extends React.Component {
                         <form className="align-center" onSubmit={this.addNewCategory}>
                             <div className="form-group">
                                 <div className="form-row">
-                                    <label htmlFor="id">ID: </label>
-                                    <input type="text" name="id" className="form-control" id="id"></input>
+                                    {/* <label htmlFor="id">ID: </label>
+                                    <input type="text" name="id" className="form-control" id="id"></input> */}
                                     <label htmlFor="name">Category Name: </label>
                                     <input type="text" name="categoryName" className="form-control" id="categoryName"></input>
                                 </div>

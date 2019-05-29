@@ -5,3 +5,10 @@
     margin-right: 10px;
 }
 
+#qrcode {
+    align-content: center;
+}
+#barcode{
+    display: flex;
+    justify-content: center;
+}

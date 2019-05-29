@@ -68,8 +68,8 @@ class User extends React.Component {
 
                 <li className="list-group-item d-flex justify-content-between align-items-center">Firstname: {this.props.firstname} Lastname: {this.props.lastname}
                     <div className="input-group-append" id="button-addon4">
-                        <button className="btn btn-primary" onClick={this.toggleModal}>Edit</button>
-                        <button className="btn btn-danger" onClick={this.deleteUser}>Delete</button>
+                        <button className="ui button primary" onClick={this.toggleModal}>Edit</button>
+                        <button className="ui button red" onClick={this.deleteUser}>Delete</button>
 
                     </div>
                 </li>

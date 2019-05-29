@@ -1,0 +1,12 @@
+#verificationDiv {
+    margin: 10%;
+}
+
+#sortingDiv {
+    background-color: cornflowerblue;
+    width: 500px;
+    justify-content: center;
+    text-align: center;
+    margin: auto;
+    padding: 50px;
+}

@@ -48,17 +48,17 @@ class CategoryItem extends React.Component {
     }
 
     deleteCategory = () => {
-        let promise = fire.database().ref('users/' + this.props.id).remove();
+        let promise = fire.database().ref('categories/' + this.props.id).remove();
         console.log(promise);
     }
 
     render() {
         return (
             <div>
-                <li className="list-group-item d-flex justify-content-between align-items-center">ID: {this.props.id} Name: {this.props.categoryName} -- Description: {this.props.categoryDescription}
+                <li className="list-group-item d-flex justify-content-between align-items-center">Name: {this.props.categoryName} -- Description: {this.props.categoryDescription}
                     <div className="input-group-append" id="button-addon4">
-                        <button className="btn btn-primary " onClick={this.toggleModal}>Edit</button>
-                        <button className="btn btn-danger" onClick={this.deleteCategory}>Delete</button>
+                        <button className="ui button primary" onClick={this.toggleModal}>Edit</button>
+                        <button className="ui button red" onClick={this.deleteCategory}>Delete</button>
 
                     </div>
                 </li>

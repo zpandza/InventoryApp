@@ -30,6 +30,7 @@ class Login extends Component {
 
   signup = (e) => {
     e.preventDefault();
+
     fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
     }).then((u) => { console.log(u) })
       .catch((error) => {
@@ -80,9 +81,9 @@ class Login extends Component {
               </div>
 
               <div className="text-center mb-4">
-                <button type="button" className="btn btn-danger btn-block z-depth-2" onClick={this.login}>Log in</button>
+                <button type="button" className="btn btn-danger btn-block z-depth-2" onClick={this.login}><Link to="/" style={{color: "white"}}>Log in</Link></button>
               </div>
-              <p className="font-small grey-text d-flex justify-content-center">Don't have an account? <a href="#" onClick={this.signup} className="dark-grey-text font-weight-bold ml-1"><Link to="/Registration">Sign up</Link></a></p>
+              <p className="font-small grey-text d-flex justify-content-center">Don't have an account? <a href="#" className="dark-grey-text font-weight-bold ml-1"><Link to="/Registration">Sign up</Link></a></p>
 
             </div>
 

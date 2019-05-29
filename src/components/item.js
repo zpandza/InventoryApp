@@ -1,8 +1,13 @@
 import React from 'react';
-import { Modal, ModalBody, ModalHeader, ModalFooter, Button } from 'reactstrap'
+import {
+    Modal, ModalBody, ModalHeader, Nav, NavItem, NavLink, TabContent, TabPane, Row, Col
+} from 'reactstrap'
 import './Item.css';
 import fire from '../config/fire';
 import { Table } from 'semantic-ui-react';
+import QRCode from 'qrcode.react';
+import Barcode from 'react-barcode';
+import classnames from 'classnames';
 
 class Item extends React.Component {
 
@@ -11,7 +16,8 @@ class Item extends React.Component {
 
         this.state = {
             modalIsOpen: false,
-
+            scanModal: false,
+            activeTab: '1'
         }
     }
 
@@ -19,6 +25,20 @@ class Item extends React.Component {
         this.setState({
             modalIsOpen: !this.state.modalIsOpen
         });
+    }
+
+    toggleScanModal = () => {
+        this.setState({
+            scanModal: !this.state.scanModal
+        });
+    }
+
+    toggle = (tab) => {
+        if (this.state.activeTab !== tab) {
+            this.setState({
+                activeTab: tab
+            });
+        }
     }
 
     editButtonClicked = (e) => {
@@ -67,25 +87,28 @@ class Item extends React.Component {
 
     }
 
+
     render() {
+
+
+
         return (
             <div id="">
-
-            {/* <li className="list-group-item d-flex justify-content-between align-items-center">Name: {this.props.name} -- Description: {this.props.description}
-                <div className="input-group-append" id="button-addon4">
-                    <button className="btn btn-primary " onClick={this.toggleModal}>Edit</button>
-                    <button className="btn btn-danger" onClick={this.deleteButtonClicked}>Delete</button>
-
-                </div>
-            </li> */}
-            <Table.Row>
-                <Table.Cell>{this.props.name}</Table.Cell>
-                <Table.Cell>{this.props.description}</Table.Cell>
-                <Table.Cell>Test</Table.Cell>
-                <Table.Cell>Test</Table.Cell>
-            </Table.Row >
-            {/* MODAL FOR EDITING */ }
-        {/* <Modal isOpen={this.state.modalIsOpen}>
+                <li className="list-group-item d-flex justify-content-between align-items-center">Name: {this.props.name} -- Description: {this.props.description}
+                    <div className="input-group-append" id="button-addon4">
+                        <button className="ui primary button " onClick={this.toggleModal}>Edit</button>
+                        <button className="ui red button" onClick={this.deleteButtonClicked}>Delete</button>
+                        <button className="ui green button" onClick={this.toggleScanModal}>Scan</button>
+                    </div>
+                </li>
+                {/* <Table.Row>
+                    <Table.Cell>{this.props.name}</Table.Cell>
+                    <Table.Cell>{this.props.description}</Table.Cell>
+                    <Table.Cell><button className="btn btn-primary " onClick={this.toggleModal}>Edit</button></Table.Cell>
+                    <Table.Cell>Test</Table.Cell>
+                </Table.Row > */}
+                {/* MODAL FOR EDITING */}
+                <Modal isOpen={this.state.modalIsOpen}>
                     <ModalHeader toggle={this.toggleModal}>
                         Edit item {this.props.name}:
                     </ModalHeader>
@@ -109,10 +132,61 @@ class Item extends React.Component {
                             </div>
                             <input type="submit" className="btn btn-danger" value="Edit" onClick={this.toggleModal}></input>
                         </form>
+
                     </ModalBody>
                 </Modal>
-                CLOSING MODAL */}
-        </div>
+                {/* CLOSING MODAL */}
+                <Modal isOpen={this.state.scanModal}>
+                    <ModalHeader toggle={this.toggleScanModal}>
+                        <div>
+                            <Nav tabs>
+                                <NavItem>
+                                    <NavLink className={classnames({ active: this.state.activeTab === '1' })}
+                                        onClick={() => { this.toggle('1'); }}>
+                                        QR Code
+                                    </NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink
+                                        className={classnames({ active: this.state.activeTab === '2' })}
+                                        onClick={() => { this.toggle('2'); }}>
+                                        Barcode
+                                </NavLink>
+                                </NavItem>
+                            </Nav>
+                        </div>
+                    </ModalHeader>
+                    <ModalBody>
+
+                        <TabContent activeTab={this.state.activeTab}>
+                            <TabPane tabId="1">
+                                <Row>
+                                    <Col sm="12">
+                                        <div id="qrcode">
+                                            <QRCode value={`Name of product: ${this.props.name} Description: ${this.props.description}`} />
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </TabPane>
+                            <TabPane tabId="2">
+                                <Row>
+                                    <div id="barcode">
+                                        <Barcode value={this.props.barcode} style={{display: "inline-block"}} />
+                                    </div>
+                                </Row>
+                            </TabPane>
+                        </TabContent>
+
+
+                        {/* <div>
+                            <QRCode style={{ marginLeft: "30%" }} value={`Name of product: ${this.props.name} Description: ${this.props.description}`} />
+                        </div>
+                        <div>
+                            <Barcode value={this.props.barcode} />
+                        </div> */}
+                    </ModalBody>
+                </Modal>
+            </div>
 
         );
     }

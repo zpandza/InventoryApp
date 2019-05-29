@@ -1,6 +1,8 @@
 import React from 'react';
 import fire from '../config/fire';
 import User from '../components/user';
+import Login from '../views/Login';
+
 
 class UserList extends React.Component {
 
@@ -8,11 +10,29 @@ class UserList extends React.Component {
         super(props);
 
         this.state = {
-            users: []
+            users: [],
+            user: null
         }
+        this.authListener = this.authListener.bind(this);
+    }
+
+    authListener() {
+        fire.auth().onAuthStateChanged((user) => {
+            //console.log(user);
+            if (user) {
+                this.setState({ user });
+                localStorage.setItem('user', user.uid);
+            } else {
+                this.setState({ user: null });
+                localStorage.removeItem('user');
+            }
+        });
     }
 
     componentDidMount = () => {
+
+        this.authListener();
+
         const usersRef = fire.database().ref('users');
         usersRef.on('value', (snapshot) => {
             let _users = snapshot.val();
@@ -36,24 +56,30 @@ class UserList extends React.Component {
     render() {
         return (
             <div>
-                <div>
-                    <h1>Users:</h1>
-                    {
-                        this.state.users.map((user) => {
-                            return (
-                                <div key={user.id}>
-                                    <div>
-                                        <div className="container">
-                                            <ul className="list-group">
-                                                <User id={user.id} firstname={user.firstname} lastname={user.lastname} dob={user.dob} email={user.email}/>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            );
-                        })
-                    }
-                </div>
+                {
+                    this.state.user ?
+                        <div>
+                            <div><br />
+                                <h1 className="text-center">Users:</h1><br />
+                                {
+                                    this.state.users.map((user) => {
+                                        return (
+                                            <div key={user.id}>
+                                                <div>
+                                                    <div className="container">
+                                                        <ul className="list-group">
+                                                            <User id={user.id} firstname={user.firstname} lastname={user.lastname} dob={user.dob} email={user.email} />
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        );
+                                    })
+                                }
+                            </div>
+                        </div> : <Login />
+                }
+
             </div>
         );
     }
