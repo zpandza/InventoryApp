@@ -3,10 +3,36 @@
 }
 
 #sortingDiv {
-    background-color: cornflowerblue;
     width: 500px;
     justify-content: center;
     text-align: center;
     margin: auto;
     padding: 50px;
+}
+
+#aboveListDiv {
+    justify-content: center;
+    text-align: center;
+    margin: auto;
+}
+
+#container {
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 5%;
+}
+
+.card-image-container {
+    text-align: center;
+}
+
+.card-image {
+    display: inline-block;
+    padding: 50px;
+}
+
+.col-4 :hover {
+    width: 101%;
+    height: 101%;
+    opacity:0.9;
 }

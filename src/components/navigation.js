@@ -53,10 +53,11 @@ class Navigation extends React.Component {
                 {
                     (this.state.user && fire.auth().currentUser.emailVerified) &&
                     <div className="ui menu">
-                        <a className="item"><Link to="/">Home</Link></a>
-                        <a className="item"><Link to="/Users">Users</Link> </a>
-                        <a className="item"><Link to="/Categories">Categories</Link></a>
-                        <a className="item" onClick={this.logout}><Link to="/Login">Log Out</Link></a>
+                        <Link className="item" to="/">Home</Link>
+                        <Link className="item" to="/Items">Items</Link> 
+                        <Link className="item" to="/Users">Users</Link> 
+                        <Link className="item" to="/Categories">Categories</Link>
+                        <Link className="item" onClick={this.logout} to="/Login">Log Out</Link>
                     </div>
                 }
 

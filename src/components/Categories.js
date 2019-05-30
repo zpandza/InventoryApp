@@ -1,7 +1,7 @@
 import React from 'react';
-import CategoryItem from '../components/category';
+import CategoryItem from './Categories/category';
 import fire from '../config/fire';
-import Login from '../views/Login';
+import Login from '../components/Login';
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
 import '../css/Categories.css';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, ModalBody, ModalHeader, ModalFooter, Button } from 'reactstrap'
-import './Item.css';
-import fire from '../config/fire';
+import '../../css/Item.css';
+import fire from '../../config/fire';
 
 class User extends React.Component {
 

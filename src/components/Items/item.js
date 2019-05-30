@@ -2,12 +2,13 @@ import React from 'react';
 import {
     Modal, ModalBody, ModalHeader, Nav, NavItem, NavLink, TabContent, TabPane, Row, Col
 } from 'reactstrap'
-import './Item.css';
-import fire from '../config/fire';
+import '../../css/Item.css';
+import fire from '../../config/fire';
 import { Table } from 'semantic-ui-react';
 import QRCode from 'qrcode.react';
 import Barcode from 'react-barcode';
 import classnames from 'classnames';
+import CategoryOption from '../Categories/categoryOption';
 
 class Item extends React.Component {
 
@@ -17,8 +18,28 @@ class Item extends React.Component {
         this.state = {
             modalIsOpen: false,
             scanModal: false,
-            activeTab: '1'
+            activeTab: '1',
+            categories: []
         }
+    }
+
+    componentDidMount = () => {
+        const categoriesRef = fire.database().ref('categories');
+        categoriesRef.on('value', (snapshot) => {
+            let _categories = snapshot.val();
+            let newState = [];
+            for (let category in _categories) {
+                newState.push({
+                    id: category,
+                    categoryName: _categories[category].categoryName,
+                    categoryDescription: _categories[category].categoryDescription
+                });
+            }
+
+            this.setState({
+                categories: newState
+            });
+        });
     }
 
     toggleModal = () => {
@@ -94,7 +115,7 @@ class Item extends React.Component {
 
         return (
             <div id="">
-                <li className="list-group-item d-flex justify-content-between align-items-center">Name: {this.props.name} -- Description: {this.props.description}
+                <li className="list-group-item d-flex justify-content-between align-items-center lead">Name: {this.props.name} -- Description: {this.props.description}
                     <div className="input-group-append" id="button-addon4">
                         <button className="ui primary button " onClick={this.toggleModal}>Edit</button>
                         <button className="ui red button" onClick={this.deleteButtonClicked}>Delete</button>
@@ -124,8 +145,19 @@ class Item extends React.Component {
                                 <div className="form-row">
                                     <label htmlFor="description">Description: </label>
                                     <input type="text" name="description" className="form-control" id="description" defaultValue={this.props.description}></input>
-                                    <label htmlFor="category">Category: </label>
-                                    <input type="text" name="category" className="form-control" id="category" defaultValue={this.props.category}></input>
+                                    <label htmlFor="category">Category</label>
+                                    <select className="form-control" id="category" name="category" defaultValue={this.props.category}>
+                                        {
+                                            this.state.categories.map((category) => {
+                                                console.log(category);
+                                                return (
+                                                    
+                                                    <CategoryOption key={category.id} id={category.id} name={category.categoryName} description={category.categoryDescription}/>
+                                                );
+                                            })
+
+                                        }
+                                    </select>
                                     <label htmlFor="barcode">Barcode: </label>
                                     <input type="text" name="barcode" className="form-control" id="barcode" defaultValue={this.props.barcode}></input>
                                 </div>

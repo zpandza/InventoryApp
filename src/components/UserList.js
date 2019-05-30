@@ -1,7 +1,7 @@
 import React from 'react';
 import fire from '../config/fire';
-import User from '../components/user';
-import Login from '../views/Login';
+import User from './UserList/user';
+import Login from '../components/Login';
 
 
 class UserList extends React.Component {

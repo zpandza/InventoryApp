@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import fire from '../config/fire';
-import Item from '../components/item';
-import CategoryOption from '../components/categoryOption';
+import Item from './Items/item';
+import CategoryOption from './Categories/categoryOption';
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
 import { Button, ItemDescription, Table, Menu, Icon } from 'semantic-ui-react'
 import Firebase from 'firebase';
 import '../css/Home.css';
+import users from '../images/users.png';
+import items from '../images/items.png';
+import category from '../images/category.png'
 
 class Home extends Component {
 
@@ -169,72 +172,48 @@ class Home extends Component {
 
             <div>
                 {
-                    fire.auth().currentUser.emailVerified ? <div>
-                        <div><br />
-                            <h1>Items: </h1><br />
-                            <button className="ui primary button"><Link to="/NewItem" style={{ color: "white" }}>Add Item</Link></button><br /><br />
-                            <div id="sortingDiv">
-                                <div className="row">
-                                    <div className="col-6">
-                                        <label htmlFor="searchbar">Search:</label>
-                                        <input type="text" id="searchbar" name="search" className="form-control" style={{ width: "200px", alignContent: "center"}} onChange={this.handleChange} placeholder="Search..." />
-                                    </div>
-                                    <div className="col-6">
-                                        <label htmlFor="categorySelect">Categories:</label>
-                                        <select className="form-control" id="categorySelect" name="categorySelect" style={{ width: "200px" }} onChange={this.handleChangeCategory}>
-                                            <option></option>
-                                            {
-
-                                                this.state.categories.map((category) => {
-                                                    console.log(category);
-                                                    return (
-
-                                                        <CategoryOption key={category.id} id={category.id} name={category.categoryName} description={category.categoryDescription} />
-                                                    );
-                                                })
-
-                                            }
-                                        </select>
+                    fire.auth().currentUser.emailVerified ?
+                        <div className="container" id="container">
+                            <div className="row">
+                                <div className="col-4">
+                                    <div className="card" style={{ width: "25rem", borderRadius: "25px" }}>
+                                        <div className="card-image-container">
+                                            <img className="card-img-top card-image" src={items} alt="Card image cap" />
+                                        </div>
+                                        <div className="card-body">
+                                            <h5 className="card-title">Items</h5>
+                                            <p className="card-text">Browse through our Inventory.</p>
+                                            <Link className="btn btn-primary" to="/Items" style={{ color: "white" }}>Go to Items</Link>
+                                        </div>
                                     </div>
                                 </div>
-                            </div><br/>
-                            {
-                                
-                                (this.state.searchValue == "" && this.state.selectValue == "") ? this.state.items.map((item) => {
-                                    return (
-                                        <div key={item.id}>
-                                            <div>
-
-                                                <div className="container">
-                                                    <ul className="list-group">
-                                                        <Item id={item.id} name={item.name} description={item.description} category={item.category} barcode={item.barcode} />
-                                                    </ul>
-                                                </div>
-                                            </div>
+                                <div className="col-4">
+                                    <div className="card" style={{ width: "25rem", borderRadius: "25px" }}>
+                                        <div className="card-image-container">
+                                            <img className="card-img-top card-image" src={users} alt="Card image cap"/>
                                         </div>
-                                    );
-                                })
-                                    :
-                                    this.state.filteredItems.map((item) => {
-                                        return (
-                                            <div key={item.id}>
-                                                <div>
-
-                                                    <div className="container">
-                                                        <ul className="list-group">
-                                                            <Item id={item.id} name={item.name} description={item.description} category={item.category} barcode={item.barcode} />
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        );
-                                    })
-                            }
-
+                                        <div className="card-body">
+                                            <h5 className="card-title">Users</h5>
+                                            <p className="card-text">See all users who are using our application.</p>
+                                            <Link className="btn btn-primary" to="/Users" style={{ color: "white" }}>Go to Users</Link>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-4">
+                                    <div className="card" style={{ width: "25rem", borderRadius: "25px" }}>
+                                        <div className="card-image-container">
+                                            <img className="card-img-top card-image" src={category} alt="Card image cap"/>
+                                        </div>
+                                        <div className="card-body">
+                                            <h5 className="card-title">Categories</h5>
+                                            <p className="card-text">See all categories that we are sorting items to.</p>
+                                            <Link className="btn btn-primary" to="/Categories" style={{ color: "white" }}>Go to Categories</Link>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        
-                        {/* <button onClick={this.logout} className="ui red button">Logout</button> */}
-                    </div>
+
                         :
                         <div id="verificationDiv">
                             <h1>Please verify your email so we can be sure you are authentic.</h1><br />

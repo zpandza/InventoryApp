@@ -1,7 +1,7 @@
 import React from 'react';
-import fire from '../config/fire';
+import fire from '../../config/fire';
 import { Link, BrowserRouter as Router } from 'react-router-dom';
-import CategoryOption from '../components/categoryOption';
+import CategoryOption from '../Categories/categoryOption';
 
 class NewItem extends React.Component {
 
@@ -106,8 +106,7 @@ class NewItem extends React.Component {
                                 </div>
                             </div>
                             <input type="submit" className="btn btn-danger" value="Add"></input><br /><br />
-                            <button type="submit" className="btn btn-primary"><Link to="/" style={{ color: "white" }}>Add</Link></button>
-                            <button className="btn btn-primary"><Link to="/" style={{ color: "white" }}>Back</Link></button>
+                            <button className="btn btn-primary"><Link to="/Items" style={{ color: "white" }}>Back</Link></button>
                         </form>
 
                         <div className="col-3">
