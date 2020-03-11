@@ -1,3 +1,5 @@
+Inventory Management System application made in React. It is using firebase for authentication, registration and database. 
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
