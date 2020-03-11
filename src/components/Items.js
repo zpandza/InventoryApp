@@ -6,10 +6,10 @@ import CategoryOption from './Categories/categoryOption';
 import Login from './Login';
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
 import '../css/Home.css';
-import logo from '../images/spark-bijeli.png';
+// import logo from '../images/spark-bijeli.png';
 import { Icon, Label, Menu, Table } from 'semantic-ui-react'
-import ReactTable from 'react-table'
-import selectTableHOC from "react-table/lib/hoc/selectTable";
+// import ReactTable from 'react-table'
+// import selectTableHOC from "react-table/lib/hoc/selectTable";
 import QRCode from 'qrcode.react';
 import Barcode from 'react-barcode';
 import classnames from 'classnames';
@@ -18,10 +18,10 @@ import {
     Modal, ModalBody, ModalHeader, Nav, NavItem, NavLink, TabContent, TabPane, Row, Col
 } from 'reactstrap'
 
-import 'react-table/react-table.css'
+// import 'react-table/react-table.css'
 
 
-const SelectTable = selectTableHOC(ReactTable)
+// const SelectTable = selectTableHOC(ReactTable)
 
 class Items extends Component {
 
@@ -320,7 +320,7 @@ class Items extends Component {
                                 <div><br />
                                     <div id="aboveListDiv">
                                         <h1>Items: </h1><br />
-                                        <img src={logo}></img>
+                                        {/* <img src={logo}></img> */}
                                     </div><br /><br />
                                     <div className="row">
                                         <div className="col">
@@ -360,8 +360,8 @@ class Items extends Component {
                                     <br />
                                     <div className="row" style={{ paddingTop: "50px" }}>
 
-
-                                        {
+                                        <p>This should be table of all items, it was working but something with node_modules was broken so I had to comment it. </p>
+                                        {/* {
                                             (this.state.searchValue == "" && this.state.selectValue == "") ?
 
                                                 < SelectTable
@@ -388,7 +388,7 @@ class Items extends Component {
                                                     {...checkboxProps}
                                                 />
 
-                                        }
+                                        } */}
 
                                         <Modal isOpen={this.state.modalIsOpen}>
                                             <ModalHeader toggle={this.toggleModal}>
